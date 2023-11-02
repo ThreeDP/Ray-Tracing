@@ -1,3 +1,3 @@
-module github.com/threedp/rt
+module rt
 
 go 1.19

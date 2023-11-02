@@ -14,13 +14,13 @@ func isEqual(x, y, epsilon float64) bool {
 	return false
 }
 
-func compareTuples(t *testing.T, exp, res tuple) {
+func compareTuples(t *testing.T, exp, res Tuple) {
 	t.Helper()
 	e := exp.GetAxes();
 	r := res.GetAxes();
 	axes := axes{math.Abs(e.x - r.x), math.Abs(e.y - r.y), math.Abs(e.z - r.z), math.Abs(e.w - r.w)}
 	if ( axes.x >= EPSILON || axes.y >= EPSILON || axes.z >= EPSILON || axes.w >= EPSILON) {
-		t.Errorf("\nexpected tuple:\t[x: %.2f, y: %.2f, z: %.2f, w: %.2f],\nresult tuple:\t[x: %.2f, y: %.2f, z: %.2f, w: %.2f]", e.x, e.y, e.z, e.w, r.x, r.y, r.z, r.w)
+		t.Errorf("\nexpected Tuple:\t[x: %.2f, y: %.2f, z: %.2f, w: %.2f],\nresult Tuple:\t[x: %.2f, y: %.2f, z: %.2f, w: %.2f]", e.x, e.y, e.z, e.w, r.x, r.y, r.z, r.w)
 	}
 }
 		
@@ -100,7 +100,7 @@ func TestSubtracting(t *testing.T) {
 }
 
 func TestNegate(t *testing.T) {
-	t.Run("Negating a tuple", func(t *testing.T) {
+	t.Run("Negating a Tuple", func(t *testing.T) {
 		a := point{axes{1, -2, 3, -4}}
 		a.Negate()
 		compareTuples(t, &a, &point{axes{-1, 2, -3, 4}})
@@ -108,12 +108,12 @@ func TestNegate(t *testing.T) {
 }
 
 func TestMultiply(t *testing.T) {
-	t.Run("Multiplying a tuple by a scalar", func(t *testing.T) {
+	t.Run("Multiplying a Tuple by a scalar", func(t *testing.T) {
 		a := point{axes{1, -2, 3, -4}}
 		a.Multiply(3.5)
 		compareTuples(t, &a, &point{axes{3.5, -7, 10.5, -14}})
 	})
-	t.Run("Multiplying a tuple by a faction", func(t *testing.T) {
+	t.Run("Multiplying a Tuple by a faction", func(t *testing.T) {
 		a := point{axes{1, -2, 3, -4}}
 		a.Multiply(0.5)
 		compareTuples(t, &a, &point{axes{0.5, -1, 1.5, -2}})
@@ -121,7 +121,7 @@ func TestMultiply(t *testing.T) {
 }
 
 func TestDivide(t *testing.T) {
-	t.Run("Dividing a tuple by a scalar", func(t *testing.T) {
+	t.Run("Dividing a Tuple by a scalar", func(t *testing.T) {
 		a := point{axes{1, -2, 3, -4}}
 		a.Divide(2)
 		compareTuples(t, &a, &point{axes{0.5, -1, 1.5, -2}})

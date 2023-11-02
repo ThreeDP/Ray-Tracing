@@ -16,15 +16,15 @@ type vector struct {
 	axes
 }
 
-type tuple interface {
+type Tuple interface {
 	Create(x, y, z float64)
 	GetAxes() axes
-	Add(b tuple) tuple
-	Subtracting(b tuple) tuple
+	Add(b Tuple) Tuple
+	Subtracting(b Tuple) Tuple
 	Negate()
 	Multiply(m float64)
 	Divide(m float64)
-	DotProduct(t tuple) float64
+	DotProduct(t Tuple) float64
 }
 
 func (p *point) Create(x, y, z float64) {
@@ -38,7 +38,7 @@ func (p *point) GetAxes() axes {
 	return axes{p.x, p.y, p.z, p.w};
 }
 
-func (a *point) Add(b tuple) tuple {
+func (a *point) Add(b Tuple) Tuple {
 	b1 := b.GetAxes()
 	w := a.w + b1.w 
 	if w > 0 {
@@ -47,7 +47,7 @@ func (a *point) Add(b tuple) tuple {
 	return &vector{axes{a.x + b1.x, a.y + b1.y, a.z + b1.z, w}}
 }
 
-func (a *point) Subtracting(b tuple) tuple {
+func (a *point) Subtracting(b Tuple) Tuple {
 	b1 := b.GetAxes()
 	w := math.Abs(a.w - b1.w)
 	if w != 0 {
@@ -77,7 +77,7 @@ func (p *point) Divide(m float64) {
 	p.w = p.w / m
 }
 
-func (a *point) DotProduct(t tuple) float64 {
+func (a *point) DotProduct(t Tuple) float64 {
 	b := t.GetAxes()
 	return (a.x * b.x + a.y * b.y + a.z * b.z + a.w * a.w) 
 }
@@ -93,7 +93,7 @@ func (v *vector) GetAxes() axes {
 	return axes{v.x, v.y, v.z, v.w};
 }
 
-func (a *vector) Add(b tuple) tuple {
+func (a *vector) Add(b Tuple) Tuple {
 	b1 := b.GetAxes()
 	w := a.w + b1.w 
 	if ( w > 0) {
@@ -102,7 +102,7 @@ func (a *vector) Add(b tuple) tuple {
 	return &vector{axes{a.x + b1.x, a.y + b1.y, a.z + b1.z, w}}
 }
 
-func (a *vector) Subtracting(b tuple) tuple {
+func (a *vector) Subtracting(b Tuple) Tuple {
 	b1 := b.GetAxes()
 	w := math.Abs(a.w - b1.w)
 	if w > 0 {
@@ -140,12 +140,12 @@ func (v *vector) Normalize() vector {
 	return (vector{axes{v.x / v.Magnitude(), v.y / v.Magnitude(), v.z / v.Magnitude(), v.w / v.Magnitude()}})
 }
 
-func (a *vector) DotProduct(t tuple) float64 {
+func (a *vector) DotProduct(t Tuple) float64 {
 	b := t.GetAxes()
 	return (a.x * b.x + a.y * b.y + a.z * b.z + a.w * a.w) 
 }
 
-func (a *vector) CrossProduct(t tuple) vector {
+func (a *vector) CrossProduct(t Tuple) vector {
 	b := t.GetAxes()
 	return vector{axes{a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x, 0.0}}
 }
