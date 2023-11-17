@@ -1,5 +1,9 @@
 package rtmatrices
 
+import (
+	"rt/tuples"
+)
+
 type Matrices struct {
 	x, y uint8
 	node [][]float64
@@ -24,4 +28,9 @@ func (m1 *Matrices) Mul(m2 *Matrices) Matrices {
 	res.x = m1.x
 	res.y = m1.y 
 	return res
+}
+
+func (m *Matrices) MulByObj(t tuples.Tuple) tuples.Tuple {
+	
+	return 
 }

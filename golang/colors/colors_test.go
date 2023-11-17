@@ -4,9 +4,9 @@ import (
 	"testing"
 	"math"
 	"image/color"
+	"rt/defines"
 )
 
-const EPSILON = 0.00001
 
 func isEqual(x, y float32, epsilon float64) bool {
 	if math.Abs(float64(x - y)) < epsilon {
@@ -18,7 +18,7 @@ func isEqual(x, y float32, epsilon float64) bool {
 func compareColors(t *testing.T, a, b RtColorRGB) {
 	t.Helper()
 
-    if !isEqual(a.R, b.R, EPSILON) || !isEqual(a.G, b.G, EPSILON) || !isEqual(a.B, b.B, EPSILON){
+    if !isEqual(a.R, b.R, defines.EPSILON) || !isEqual(a.G, b.G, defines.EPSILON) || !isEqual(a.B, b.B, defines.EPSILON){
         t.Errorf("Expected color(R: %f, G: %f, B: %f), but has color(R: %f, G: %f, B: %f)", a.R, a.G, a.B, b.R, b.G, b.B)
     }
 }

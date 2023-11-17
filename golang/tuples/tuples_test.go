@@ -26,9 +26,9 @@ func compareTuples(t *testing.T, exp, res Tuple) {
 		
 func TestCreate(t *testing.T) {
 	t.Run("Create a Point", func(t *testing.T) {
-		var p point
+		var p Point
 		p.Create(4.0, -4.0, 3.0)
-		compareTuples(t, &p, &point{axes{4.0, -4.0, 3.0, 1.0}})
+		compareTuples(t, &p, &Point{axes{4.0, -4.0, 3.0, 1.0}})
 	})
 
 	t.Run("Create a Vector", func(t *testing.T) {
@@ -40,39 +40,39 @@ func TestCreate(t *testing.T) {
 
 func TestSumTwoTuples(t *testing.T) {
 	t.Run("Adding two tuples", func(t *testing.T) {
-		var a point
+		var a Point
 		var b vector
 		a.Create(3.0, -2.0, 5.0)
 		b.Create(-2.0, 3.0, 1.0)
 		res := a.Add(&b)
-		compareTuples(t, res, &point{axes{1.0, 1.0, 6.0, 1.0}})
-		if _, ok := res.(*point); !ok {
-			t.Errorf("The type expected is point, but has a vector\n")
+		compareTuples(t, res, &Point{axes{1.0, 1.0, 6.0, 1.0}})
+		if _, ok := res.(*Point); !ok {
+			t.Errorf("The type expected is Point, but has a vector\n")
 		}
 	})
 }
 
 func TestSubtracting(t *testing.T) {
 	t.Run("Subtracting two points", func(t *testing.T) {
-		var p1, p2 point
+		var p1, p2 Point
 		p1.Create(3, 2, 1)
 		p2.Create(5, 6, 7)
 		res := p1.Subtracting(&p2)
 		compareTuples(t, res, &vector{axes{-2.0, -4.0, -6.0, 0.0}})
 		if _, ok := res.(*vector); !ok {
-			t.Errorf("The type expected is vector, but has a point\n")
+			t.Errorf("The type expected is vector, but has a Point\n")
 		}
 	})
 
-	t.Run("Subtracting a vector from a point", func(t *testing.T) {
-		var p point
+	t.Run("Subtracting a vector from a Point", func(t *testing.T) {
+		var p Point
 		var v vector
 		p.Create(3, 2, 1)
 		v.Create(5, 6, 7)
 		res := p.Subtracting(&v)
-		compareTuples(t, res, &point{axes{-2.0, -4.0, -6.0, 1.0}})
-		if _, ok := res.(*point); !ok {
-			t.Errorf("The type expected is point, but has a vector\n")
+		compareTuples(t, res, &Point{axes{-2.0, -4.0, -6.0, 1.0}})
+		if _, ok := res.(*Point); !ok {
+			t.Errorf("The type expected is Point, but has a vector\n")
 		}
 	})
 
@@ -83,7 +83,7 @@ func TestSubtracting(t *testing.T) {
 		res := v1.Subtracting(&v2)
 		compareTuples(t, res, &vector{axes{-2.0, -4.0, -6.0, 0.0}})
 		if _, ok := res.(*vector); !ok {
-			t.Errorf("The type expected is point, but has a vector\n")
+			t.Errorf("The type expected is Point, but has a vector\n")
 		}
 	})
 
@@ -94,37 +94,37 @@ func TestSubtracting(t *testing.T) {
 		res := zero.Subtracting(&v)
 		compareTuples(t, res, &vector{axes{-1, 2, -3, 0}})
 		if _, ok := res.(*vector); !ok {
-			t.Errorf("The type expected is point, but has a vector\n")
+			t.Errorf("The type expected is Point, but has a vector\n")
 		}
 	})
 }
 
 func TestNegate(t *testing.T) {
 	t.Run("Negating a Tuple", func(t *testing.T) {
-		a := point{axes{1, -2, 3, -4}}
+		a := Point{axes{1, -2, 3, -4}}
 		a.Negate()
-		compareTuples(t, &a, &point{axes{-1, 2, -3, 4}})
+		compareTuples(t, &a, &Point{axes{-1, 2, -3, 4}})
 	})
 }
 
 func TestMultiply(t *testing.T) {
 	t.Run("Multiplying a Tuple by a scalar", func(t *testing.T) {
-		a := point{axes{1, -2, 3, -4}}
+		a := Point{axes{1, -2, 3, -4}}
 		a.Multiply(3.5)
-		compareTuples(t, &a, &point{axes{3.5, -7, 10.5, -14}})
+		compareTuples(t, &a, &Point{axes{3.5, -7, 10.5, -14}})
 	})
 	t.Run("Multiplying a Tuple by a faction", func(t *testing.T) {
-		a := point{axes{1, -2, 3, -4}}
+		a := Point{axes{1, -2, 3, -4}}
 		a.Multiply(0.5)
-		compareTuples(t, &a, &point{axes{0.5, -1, 1.5, -2}})
+		compareTuples(t, &a, &Point{axes{0.5, -1, 1.5, -2}})
 	})
 }
 
 func TestDivide(t *testing.T) {
 	t.Run("Dividing a Tuple by a scalar", func(t *testing.T) {
-		a := point{axes{1, -2, 3, -4}}
+		a := Point{axes{1, -2, 3, -4}}
 		a.Divide(2)
-		compareTuples(t, &a, &point{axes{0.5, -1, 1.5, -2}})
+		compareTuples(t, &a, &Point{axes{0.5, -1, 1.5, -2}})
 	})
 }
 

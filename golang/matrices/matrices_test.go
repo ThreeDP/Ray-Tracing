@@ -3,6 +3,7 @@ package rtmatrices
 import (
 	"testing"
 	"math"
+	"rt/tuples"
 )
 
 // func TestCreatematrix(t *testing.T) {
@@ -80,5 +81,21 @@ func TestMatrixOperations(t *testing.T) {
 				{16, 26, 46, 42}}}
 		res := a.Mul(&b)
 		comapreMatrix(t, &res, &exp)
+	})
+
+	t.Run("A matrix multiplied by a tuple", func(t *testing.T) {
+		a := Matrices{
+			x: 4,
+			y: 4,
+			node: [][]float64{
+				{1, 2, 3, 4},
+				{5, 6, 7, 8},
+				{9, 8, 7, 6},
+				{5, 4, 3, 2}}}
+		var b tuples.Point
+		b.Create(1, 2, 3)
+		if (a.MulByObj(b).Comp(&Point{Axes{18, 24, 33, 1}}) == 0) {
+			
+		}
 	})
 }
